@@ -1,4 +1,11 @@
 class MoviesController < ApplicationController
+  
+  def edit
+    @the_movie = Movie.where(id: params.fetch(:id))[0]
+
+    render template: "movies/edit"
+  end
+  
   def new
     render template: "movies/new" 
   end
@@ -31,7 +38,7 @@ class MoviesController < ApplicationController
       the_movie.save
       redirect_to("/movies", { :notice => "Movie created successfully." })
     else
-      redirect_to("/movies", { :alert => the_movie.errors.full_messages.to_sentence })
+      redirect_to("/movies/new", { :alert => the_movie.errors.full_messages.to_sentence })
     end
   end
 
